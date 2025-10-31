@@ -96,8 +96,13 @@ public class loginPage extends JFrame implements ActionListener{
 
                 String votername = rs.getString("username");
                 String voterpass = rs.getString("password");
+                String voterstate = rs.getString("state");
 
-                if (role.equals("voter") && user.equals(votername) && pass.equals(voterpass)) {
+                if (role.equals("voter") && user.equals(votername) && pass.equals(voterpass) && voterstate.equals("Voted")){
+                    JOptionPane.showMessageDialog(null, "This Account already voted");
+                }
+
+                if (role.equals("voter") && user.equals(votername) && pass.equals(voterpass) && voterstate.equals("pending")) {
                     main.name = (String) rs.getString("name");
                     new Vote();
                     this.dispose();
@@ -106,7 +111,6 @@ public class loginPage extends JFrame implements ActionListener{
                 }
 
                 conn.close();
-                
             } catch (ClassNotFoundException err) {
                 err.printStackTrace();
             } catch (SQLException err) {

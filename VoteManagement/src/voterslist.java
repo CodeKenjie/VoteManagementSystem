@@ -18,7 +18,7 @@ public class voterslist extends JFrame implements ActionListener{
             ResultSet rs = stat.executeQuery("SELECT * FROM registeredVoters;");
 
             while(rs.next()){
-                model.addRow(new Object[]{rs.getInt("id"), rs.getString("name"), rs.getString("sufix"), rs.getInt("age"), rs.getString("birthdate"), rs.getString("birthplace"), rs.getString("email"), rs.getString("username"), rs.getString("password")});
+                model.addRow(new Object[]{rs.getInt("id"), rs.getString("name"), rs.getString("sufix"), rs.getInt("age"), rs.getString("birthdate"), rs.getString("birthplace"), rs.getString("email"), rs.getString("username"), rs.getString("password"), rs.getString("state")});
             }
             conn.close();
         } catch(ClassNotFoundException e) {
@@ -33,7 +33,7 @@ public class voterslist extends JFrame implements ActionListener{
         DefaultTableCellRenderer cr = new DefaultTableCellRenderer();
         cr.setHorizontalAlignment(JLabel.CENTER);
 
-        String[] cols = {"id", "name", "sufix", "age", "birthdate", "birthplace", "email", "username", "password"};
+        String[] cols = {"id", "name", "sufix", "age", "birthdate", "birthplace", "email", "username", "password", "state"};
         JPanel table_p = new JPanel(new BorderLayout());
         table_p.setPreferredSize(new Dimension(1500, 400));
         JScrollPane tsp = new JScrollPane(table_p);

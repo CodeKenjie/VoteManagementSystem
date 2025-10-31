@@ -150,7 +150,7 @@ public class RegisterAsVoter extends JFrame implements ActionListener{
                 try{
                     Class.forName(cfn);
                     Connection conn = DriverManager.getConnection(url);
-                    PreparedStatement prep = conn.prepareStatement("INSERT INTO registeredVoters(name, sufix, age, birthdate, birthplace, email, username, password) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+                    PreparedStatement prep = conn.prepareStatement("INSERT INTO registeredVoters(name, sufix, age, birthdate, birthplace, email, username, password, state) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     prep.setString(1, name);
                     prep.setString(2, sufix.getText());
                     prep.setInt(3, age_i);
@@ -159,6 +159,7 @@ public class RegisterAsVoter extends JFrame implements ActionListener{
                     prep.setString(6, email_s);
                     prep.setString(7, user);
                     prep.setString(8, password_s);
+                    prep.setString(9, "pending");
                     prep.executeUpdate();
 
                     conn.close();

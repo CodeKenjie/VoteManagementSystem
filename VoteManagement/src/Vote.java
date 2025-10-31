@@ -111,99 +111,107 @@ public class Vote extends JFrame implements ActionListener{
             new Auditor(); 
         }
         if(e.getSource() == submit){
-            try{
-                Class.forName("org.sqlite.JDBC");
-                Connection conn = DriverManager.getConnection("jdbc:sqlite:VoteManagement.db");
-                PreparedStatement prep = conn.prepareStatement("UPDATE presidentResult SET votes = votes + 1 WHERE name = ?");
+            if (main.pickedpres.equals("") || main.pickedvicepres.equals("") || main.pickedsecr.equals("") || main.pickedtres.equals("") || main.pickedaudi.equals("")) {
+                JOptionPane.showMessageDialog(null, "you missed a position, please pick a Candidate in each position");
+            } else {
+                try{
+                    Class.forName("org.sqlite.JDBC");
+                    Connection conn = DriverManager.getConnection("jdbc:sqlite:VoteManagement.db");
+                    PreparedStatement prep = conn.prepareStatement("UPDATE presidentResult SET votes = votes + 1 WHERE name = ?");
 
-                prep.setString(1, main.pickedpres);
-                prep.addBatch();
+                    prep.setString(1, main.pickedpres);
+                    prep.addBatch();
+                    prep.executeBatch();
 
+                    conn.close();
+                } catch(ClassNotFoundException err) {
+                    err.printStackTrace();
+                } catch(SQLException err) {
+                    err.printStackTrace();
+                }       
 
-                prep.executeBatch();
+                try{
+                    Class.forName("org.sqlite.JDBC");
+                    Connection conn = DriverManager.getConnection("jdbc:sqlite:VoteManagement.db");
+                    PreparedStatement prep = conn.prepareStatement("UPDATE vicepresidentResult SET votes = votes + 1 WHERE name = ?");
 
-                conn.close();
-            } catch(ClassNotFoundException err) {
-                err.printStackTrace();
-            } catch(SQLException err) {
-                err.printStackTrace();
-            }       
+                    prep.setString(1, main.pickedvicepres);
+                    prep.addBatch();
+                    prep.executeBatch();
 
-            try{
-                Class.forName("org.sqlite.JDBC");
-                Connection conn = DriverManager.getConnection("jdbc:sqlite:VoteManagement.db");
-                PreparedStatement prep = conn.prepareStatement("UPDATE vicepresidentResult SET votes = votes + 1 WHERE name = ?");
+                    conn.close();
+                } catch(ClassNotFoundException err) {
+                    err.printStackTrace();
+                } catch(SQLException err) {
+                    err.printStackTrace();
+                }
 
-                prep.setString(1, main.pickedvicepres);
-                prep.addBatch();
+                try{
+                    Class.forName("org.sqlite.JDBC");
+                    Connection conn = DriverManager.getConnection("jdbc:sqlite:VoteManagement.db");
+                    PreparedStatement prep = conn.prepareStatement("UPDATE secretaryResult SET votes = votes + 1 WHERE name = ?");
 
+                    prep.setString(1, main.pickedsecr);
+                    prep.addBatch();
+                    prep.executeBatch();
 
-                prep.executeBatch();
+                    conn.close();
+                } catch(ClassNotFoundException err) {
+                    err.printStackTrace();
+                } catch(SQLException err) {
+                    err.printStackTrace();
+                }
 
-                conn.close();
-            } catch(ClassNotFoundException err) {
-                err.printStackTrace();
-            } catch(SQLException err) {
-                err.printStackTrace();
+                try{
+                    Class.forName("org.sqlite.JDBC");
+                    Connection conn = DriverManager.getConnection("jdbc:sqlite:VoteManagement.db");
+                    PreparedStatement prep = conn.prepareStatement("UPDATE tresurerResult SET votes = votes + 1 WHERE name = ?");
+
+                    prep.setString(1, main.pickedtres);
+                    prep.addBatch();
+                    prep.executeBatch();
+
+                    conn.close();
+                } catch(ClassNotFoundException err) {
+                    err.printStackTrace();
+                } catch(SQLException err) {
+                    err.printStackTrace();
+                }
+
+                try{
+                    Class.forName("org.sqlite.JDBC");
+                    Connection conn = DriverManager.getConnection("jdbc:sqlite:VoteManagement.db");
+                    PreparedStatement prep = conn.prepareStatement("UPDATE auditorResult SET votes = votes + 1 WHERE name = ?");
+
+                    prep.setString(1, main.pickedaudi);
+                    prep.addBatch();
+                    prep.executeBatch();
+
+                    conn.close();
+                } catch(ClassNotFoundException err) {
+                    err.printStackTrace();
+                } catch(SQLException err) {
+                    err.printStackTrace();
+                }
+
+                try {
+                    Class.forName("org.sqlite.JDBC");
+                    Connection conn = DriverManager.getConnection("jdbc:sqlite:VoteManagement.db");
+                    PreparedStatement prep = conn.prepareStatement("UPDATE registeredVoters SET state = ? WHERE name = ?");
+                    prep.setString(1, "Voted");
+                    prep.setString(2, main.name);
+                    prep.executeUpdate();
+                    conn.close();
+                } catch(ClassNotFoundException err) {
+                    err.printStackTrace();
+                } catch(SQLException err) {
+                    err.printStackTrace();
+                }
+
+                main.limiter++;
+                new loginPage();
+                this.dispose();
             }
-
-            try{
-                Class.forName("org.sqlite.JDBC");
-                Connection conn = DriverManager.getConnection("jdbc:sqlite:VoteManagement.db");
-                PreparedStatement prep = conn.prepareStatement("UPDATE secretaryResult SET votes = votes + 1 WHERE name = ?");
-
-                prep.setString(1, main.pickedsecr);
-                prep.addBatch();
-
-
-                prep.executeBatch();
-
-                conn.close();
-            } catch(ClassNotFoundException err) {
-                err.printStackTrace();
-            } catch(SQLException err) {
-                err.printStackTrace();
-            }
-
-            try{
-                Class.forName("org.sqlite.JDBC");
-                Connection conn = DriverManager.getConnection("jdbc:sqlite:VoteManagement.db");
-                PreparedStatement prep = conn.prepareStatement("UPDATE tresurerResult SET votes = votes + 1 WHERE name = ?");
-
-                prep.setString(1, main.pickedtres);
-                prep.addBatch();
-
-
-                prep.executeBatch();
-
-                conn.close();
-            } catch(ClassNotFoundException err) {
-                err.printStackTrace();
-            } catch(SQLException err) {
-                err.printStackTrace();
-            }
-
-            try{
-                Class.forName("org.sqlite.JDBC");
-                Connection conn = DriverManager.getConnection("jdbc:sqlite:VoteManagement.db");
-                PreparedStatement prep = conn.prepareStatement("UPDATE auditorResult SET votes = votes + 1 WHERE name = ?");
-
-                prep.setString(1, main.pickedaudi);
-                prep.addBatch();
-
-
-                prep.executeBatch();
-
-                conn.close();
-            } catch(ClassNotFoundException err) {
-                err.printStackTrace();
-            } catch(SQLException err) {
-                err.printStackTrace();
-            }
-
-            main.limiter++;
-            new loginPage();
-            this.dispose();
         }
 
         if(e.getSource() == cancel){

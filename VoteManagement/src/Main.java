@@ -15,7 +15,7 @@ public class Main{
     public static String pickedaudi = "";
 
     public void createSQL(){
-        String sql1 = "CREATE TABLE IF NOT EXISTS registeredVoters (id INTEGER PRIMARY KEY AUTOINCREMENT, name, sufix, age INTEGER,  birthdate, birthplace, email, username, password)";
+        String sql1 = "CREATE TABLE IF NOT EXISTS registeredVoters (id INTEGER PRIMARY KEY AUTOINCREMENT, name, sufix, age INTEGER,  birthdate, birthplace, email, username, password, state)";
         String sql2 = "CREATE TABLE IF NOT EXISTS presidentResult (id INTEGER PRIMARY KEY AUTOINCREMENT, name, votes INTEGER)";
         String sql3 = "CREATE TABLE IF NOT EXISTS vicepresidentResult (id INTEGER PRIMARY KEY AUTOINCREMENT, name, votes INTEGER)";
         String sql4 = "CREATE TABLE IF NOT EXISTS secretaryResult (id INTEGER PRIMARY KEY AUTOINCREMENT, name, votes INTEGER)";
